@@ -3,7 +3,7 @@ package Digest;
 use strict;
 use vars qw($VERSION %MMAP $AUTOLOAD);
 
-$VERSION = "1.04";
+$VERSION = "1.05";
 
 %MMAP = (
   "SHA-1"      => ["Digest::SHA1", ["Digest::SHA", 1], ["Digest::SHA2", 1]],
@@ -212,6 +212,36 @@ Same as $ctx->digest, but will return the digest as a base64 encoded
 string.
 
 =back
+
+=head1 Digest speed
+
+This table should give some indication on the relative speed of
+different algorithms.  It is sorted by throughput based on a benchmark
+done with of some implementations of this API:
+
+ Algorithm	Size	Implementation			MB/s
+
+ MD4		128	Digest::MD4 v1.1		24.9
+ MD5		128	Digest::MD5 v2.30		18.7
+ Haval-256	256	Digest::Haval256 v1.0.4		17.0
+ SHA-1		160	Digest::SHA1 v2.06		15.3
+ SHA-1		160	Digest::SHA v4.0.0		10.1
+ SHA-256	256	Digest::SHA2 v1.0.0	 	 7.6
+ SHA-256	256	Digest::SHA v4.0.0	 	 6.5
+ SHA-384	384	Digest::SHA2 v1.0.0	 	 2.7
+ SHA-384	384	Digest::SHA v4.0.0	 	 2.7
+ SHA-512	512	Digest::SHA2 v1.0.0		 2.7
+ SHA-512	512	Digest::SHA v4.0.0		 2.7
+ Whirlpool	512	Digest::Whirlpool v1.0.2	 1.4
+ MD2		128	Digest::MD2 v2.03		 1.1
+
+ Adler-32	 32	Digest::Adler32 v0.03	 	 0.2
+ MD5		128	Digest::Perl::MD5 v1.5		 0.1
+
+These numbers was achieved Nov 2003 with ActivePerl-5.8.1 running
+under Linux on a P-II 350 MHz CPU.  The last 2 entries differ by being
+pure perl implementations of the algorithms, which explains why they
+are so slow.
 
 =head1 SEE ALSO
 
